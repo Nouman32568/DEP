@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>My Blog</title>
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Blog</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="posts">
+        <article>
+            <h2>Blog Post Title 1</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <button onclick="editPost(this)">Edit</button>
+            <button onclick="removePost(this)">Remove</button>
+        </article>
+
+        <article>
+            <h2>Blog Post Title 2</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <button onclick="editPost(this)">Edit</button>
+            <button onclick="removePost(this)">Remove</button>
+        </article>
+
+        <article>
+            <h2>Blog Post Title 3</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <button onclick="editPost(this)">Edit</button>
+            <button onclick="removePost(this)">Remove</button>
+        </article>
+    
+
+    <section>
+        <h2>Add a New Blog Post</h2>
+        <form id="postForm" onsubmit="addPost(event)">
+            <div><input type="text" id="postTitle" placeholder="Post Title" required></div>
+            <textarea id="postContent" placeholder="Post Content" required></textarea>
+            <button type="submit">Add Post</button>
+        </form>
+    </section>
+</main>
+    <footer>
+        <p>&copy; 2024 My Blog. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function editPost(button) {
+            const article = button.parentElement;
+            const title = article.querySelector('h2').innerText;
+            const content = article.querySelector('p').innerText;
+
+            const newTitle = prompt("Edit title:", title);
+            const newContent = prompt("Edit content:", content);
+
+            if (newTitle !== null) {
+                article.querySelector('h2').innerText = newTitle;
+            }
+            if (newContent !== null) {
+                article.querySelector('p').innerText = newContent;
+            }
+        }
+
+        function removePost(button) {
+            const article = button.parentElement;
+            article.remove();
+        }
+
+        function addPost(event) {
+            event.preventDefault(); // Prevent form submission
+
+            const title = document.getElementById('postTitle').value;
+            const content = document.getElementById('postContent').value;
+
+            const newArticle = document.createElement('article');
+            newArticle.innerHTML = `
+                <h2>${title}</h2>
+                <p>${content}</p>
+                <button onclick="editPost(this)">Edit</button>
+                <button onclick="removePost(this)">Remove</button>
+            `;
+
+            document.getElementById('posts').appendChild(newArticle);
+
+            // Clear the form fields
+            document.getElementById('postForm').reset();
+        }
+    </script>
+</body>
+</html>
